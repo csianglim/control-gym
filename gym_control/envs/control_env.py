@@ -18,9 +18,9 @@ U_MAX = 50			# Maximum steam flow rate U_MAX
 c = 10 				# Reward onstant defined in the ADCONIP paper
 epsilon = 0.1 		# Error threshold for setpoint tracking
 n_steps = 5 		# How many steps below threshold before an episode is done
-magicNumber = 25 	# WHAT IS THIS
+magicNumber = 10 	# WHAT IS THIS
 setpoint = 2 		# setpoint
-maxSteps = 500
+maxSteps = 200
 
 # Control Gym Environment
 class ControlEnv(gym.Env):
@@ -51,7 +51,7 @@ class ControlEnv(gym.Env):
 
 		# Check if this episode is done
 		done = False
-		if np.asscalar(self.t[-1]) > (maxSteps + magicNumber):
+		if np.asscalar(self.t[-1]) >= (maxSteps + magicNumber):
 			done = True
             
 		if self.error < epsilon:
