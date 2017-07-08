@@ -11,15 +11,15 @@ import math
 
 # CONSTANTS
 SAMPLING_TIME = 1
-NUM = [0.05,0]  # Transfer function NUM
-DEN = [1,-0.6]  # Transfer function DEN
+NUM = [0.05,0]  	# Transfer function NUM
+DEN = [1,-0.6]  	# Transfer function DEN
 U_MIN = -50 		# Minimum steam flow rate U_MIN
 U_MAX = 50			# Maximum steam flow rate U_MAX
-c = 10 					# Reward onstant defined in the ADCONIP paper
-epsilon = 1 	# Error threshold for setpoint tracking
+c = 10 				# Reward onstant defined in the ADCONIP paper
+epsilon = 1 		# Error threshold for setpoint tracking
 n_steps = 5 		# How many steps below threshold before an episode is done
-magicNumber = 25 # WHAT IS THIS
-setpoint = 2 # setpoint
+magicNumber = 25 	# WHAT IS THIS
+setpoint = 2 		# setpoint
 
 # Control Gym Environment
 class ControlEnv(gym.Env):
@@ -50,7 +50,7 @@ class ControlEnv(gym.Env):
 
 		# Check if this episode is done
 		done = False
-		if np.asscalar(self.t[-1]) > 500:
+		if np.asscalar(self.t[-1]) > (500 + magicNumber):
 			done = True
             
 		if self.error < epsilon:
