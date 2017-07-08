@@ -48,6 +48,8 @@ class ControlEnv(gym.Env):
 			self.reward = 10
 		else:    
 			self.reward = -abs(self.y_t - setpoint)
+			if self.reward < -500:
+				self.reward = -500
 
 		# Check if this episode is done
 		done = False
