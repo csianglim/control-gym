@@ -81,3 +81,6 @@ class ControlEnv(gym.Env):
 		# The system output, y, is the current moisture content
 		# Grab the last value in the array and return a scalar
 		return np.asscalar(self.y_out[:,-1])
+
+	def render(self, mode='human', close=False):
+		pass
