@@ -16,10 +16,11 @@ DEN = [1,-0.6]  	# Transfer function DEN
 U_MIN = -50 		# Minimum steam flow rate U_MIN
 U_MAX = 50			# Maximum steam flow rate U_MAX
 c = 10 				# Reward onstant defined in the ADCONIP paper
-epsilon = 1 		# Error threshold for setpoint tracking
+epsilon = 0.1 		# Error threshold for setpoint tracking
 n_steps = 5 		# How many steps below threshold before an episode is done
 magicNumber = 25 	# WHAT IS THIS
 setpoint = 2 		# setpoint
+maxSteps = 500
 
 # Control Gym Environment
 class ControlEnv(gym.Env):
@@ -44,13 +45,13 @@ class ControlEnv(gym.Env):
 		
 		# Calculate reward for this step
 		if abs(self.y_t - setpoint) < epsilon:        
-			self.reward = c
+			self.reward = 10
 		else:    
 			self.reward = -abs(self.y_t - setpoint)
 
 		# Check if this episode is done
 		done = False
-		if np.asscalar(self.t[-1]) > (500 + magicNumber):
+		if np.asscalar(self.t[-1]) > (maxSteps + magicNumber):
 			done = True
             
 		if self.error < epsilon:
