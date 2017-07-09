@@ -31,9 +31,12 @@ class ControlEnv(gym.Env):
 		self.u = []
 		self.t = []
 		self.action_space = spaces.Box(low=U_MIN, high=U_MAX, shape=(1,))
-		self.observation_space = spaces.Box(low=-10, high=10, shape=(1,))
+		self.observation_space = spaces.Box(low=U_MIN, high=U_MAX, shape=(1,))
 
 	def _step(self, action):
+		self.action = np.clip(action, U_MIN, U_MAX)
+		assert self.action_space.contains(action), "%r (%s) invalid " % (action, type(action))
+
 		# Step forward in time by 1 second
 		self.u = np.append(self.u,action)
 		self.t = np.append(self.t,len(self.t))
@@ -48,8 +51,6 @@ class ControlEnv(gym.Env):
 			self.reward = 10
 		else:    
 			self.reward = -abs(self.y_t - setpoint)
-			if self.reward < -500:
-				self.reward = -500
 
 		# Check if this episode is done
 		done = False
