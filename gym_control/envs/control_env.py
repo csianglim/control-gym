@@ -34,7 +34,7 @@ class ControlEnv(gym.Env):
 		self.observation_space = spaces.Box(low=U_MIN, high=U_MAX, shape=(1,))
 
 	def _step(self, action):
-		self.action = np.clip(action, U_MIN, U_MAX)
+		action = np.clip(action, U_MIN, U_MAX)
 		assert self.action_space.contains(action), "%r (%s) invalid " % (action, type(action))
 
 		# Step forward in time by 1 second
